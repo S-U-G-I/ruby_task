@@ -29,7 +29,8 @@ def q4
   sports = ["サッカー", "フットサル", nil, "野球", "バスケ", nil, "バレー"]
 
   # 以下に回答を記載
-  p sports.compact
+  p sports.compact!
+  p sports
 end
 
 def q5
@@ -59,10 +60,10 @@ def q8
   programming_languages = %w(ruby php python javascript)
 
   # 以下に回答を記載
-
+  programming_languages.map! {|language| language.capitalize}
+  upper_case_programming_languages = programming_languages.map(&:upcase)
   
   p programming_languages
-  upper_case_programming_languages=programming_languages.map(&:upcase)
   p upper_case_programming_languages
 end
 
@@ -70,8 +71,8 @@ def q9
   names = ["田中", "佐藤", "佐々木", "高橋"]
 
   # 以下に回答を記載
-  names.each_with_index do |name,i|
-      puts "会員No.#{i+1} #{name}さん"
+  names.each.with_index(1) do |name,i|
+      puts "会員No.#{i} #{name}さん"
   end
 
 end
@@ -94,7 +95,7 @@ def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
-  sports2=sports.flatten.uniq
+  sports2 = sports.flatten.uniq
   puts "ユーザーの趣味一覧"
   
   sports2.each.with_index(1) do |sport,i|
@@ -122,7 +123,7 @@ def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
-  array=data.keys
+  array = data.keys
   p array
 end
 
@@ -151,6 +152,19 @@ end
 
 class UserQ17
   # 以下に回答を記載
+  def initialize(profile)
+    @name   = profile[:name]
+    @age    = profile[:age]
+    @gender = profile[:gender]
+    @admin == profile[:admin]
+  end
+
+  def info
+    puts "名前:#{@name}"
+    puts "年齢:#{@age}"
+    puts "生別:#{@gender}"
+    puts @admin == true ? "管理者権限:有り" : "管理者権限:無し"
+  end
 
 end
 
@@ -166,6 +180,19 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(profile)
+    @name = profile[:name]
+    @age  = profile[:age]
+  end
+
+  def introduce
+    case @age
+    when 32 then
+      puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
+    when 10 then
+      puts "はいさいまいど〜，#{@name}です！！！"
+    end
+  end
 
 end
 
@@ -180,11 +207,14 @@ end
 
 class Item
   # 以下を修正して下さい
+  attr_accessor :name
 
   def initialize(name)
     @name = name
   end
+
 end
+
 
 def q19
   # ここは変更しないで下さい
@@ -194,12 +224,40 @@ end
 
 class UserQ20
   # 以下に回答を記載
+  attr_accessor :name, :age
+
+def initialize(profile)
+  @name = profile[:name]
+  @age  = profile[:age]
+end
 
 end
 
 class Zoo
   # 以下に回答を記載
 
+  def initialize(zoo)
+    @infant   = zoo[:entry_fee][:infant]
+    @children = zoo[:entry_fee][:children]
+    @adult    = zoo[:entry_fee][:adult]
+    @senior   = zoo[:entry_fee][:senior]
+  end
+
+  def info_entry_fee(user)
+    case user.age
+    when 0..3 then
+      puts "#{user.name}さんの入場料金は#{@infant}円です"
+    when 6..12 then
+      puts "#{user.name}さんの入場料金は#{@children}円です"
+    when 13..64 then
+      puts "#{user.name}さんの入場料金は#{@adult}円です"
+    when 65..120 then
+      puts "#{user.name}さんの入場料金は#{@senior}円です"
+    else
+      puts "無効な値です"
+    end
+  end
+  
 end
 
 
