@@ -190,7 +190,7 @@ class UserQ18
   def introduce
     if   @age >= 15
       puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
-    else @age <= 15
+    else @age < 15
       puts "はいさいまいど〜，#{@name}です！！！"
     end
   end
