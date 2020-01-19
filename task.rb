@@ -245,13 +245,13 @@ class Zoo
 
   def info_entry_fee(user)
     case user.age
-    when 0..3 then
+    when 0..3
       puts "#{user.name}さんの入場料金は#{@infant}円です"
-    when 6..12 then
+    when 6..12
       puts "#{user.name}さんの入場料金は#{@children}円です"
-    when 13..64 then
+    when 13..64
       puts "#{user.name}さんの入場料金は#{@adult}円です"
-    when 65..120 then
+    when 65..120
       puts "#{user.name}さんの入場料金は#{@senior}円です"
     else
       puts "無効な値です"
