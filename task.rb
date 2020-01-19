@@ -187,9 +187,9 @@ class UserQ18
 
   def introduce
     case @age
-    when 32 then
+    when 15..Float::INFINITY
       puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
-    when 10 then
+    when 0..15
       puts "はいさいまいど〜，#{@name}です！！！"
     end
   end
@@ -210,7 +210,7 @@ class Item
   attr_accessor :name
 
   def initialize(name)
-    @name = name
+    @name = name[:name]
   end
 
 end
