@@ -156,14 +156,16 @@ class UserQ17
     @name   = profile[:name]
     @age    = profile[:age]
     @gender = profile[:gender]
-    @admin == profile[:admin]
+    @admin  = profile[:admin]
   end
 
   def info
-    puts "名前:#{@name}"
-    puts "年齢:#{@age}"
-    puts "生別:#{@gender}"
-    puts @admin == true ? "管理者権限:有り" : "管理者権限:無し"
+    puts <<~EOS
+      名前: #{@name}
+      年齢: #{@age}
+      性別: #{@gender}
+      管理者権限: #{@admin == true ? "有り" : "無し"}
+    EOS
   end
 
 end
@@ -186,10 +188,9 @@ class UserQ18
   end
 
   def introduce
-    case @age
-    when 15..Float::INFINITY
+    if   @age >= 15
       puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
-    when 0..15
+    else @age <= 15
       puts "はいさいまいど〜，#{@name}です！！！"
     end
   end
@@ -209,8 +210,8 @@ class Item
   # 以下を修正して下さい
   attr_accessor :name
 
-  def initialize(name)
-    @name = name[:name]
+  def initialize(name:)
+    @name = name
   end
 
 end
