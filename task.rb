@@ -5,7 +5,8 @@ def q1
   names = ["田中", "佐藤", "佐々木", "高橋"]
 
   # 以下に回答を記載
-
+  names << "斉藤"
+  p names
 end
 
 def q2
@@ -13,21 +14,23 @@ def q2
   array2 = %w(bird bat tiger)
 
   # 以下に回答を記載
-
+  array3=array1 + array2
+  p array3
 end
 
 def q3
   numbers = [1, 5, 8, 10, 2, 3, 2, 3, 3, 1, 4, 5, 9]
 
   # 以下に回答を記載
-
+  p numbers.count(3)
 end
 
 def q4
   sports = ["サッカー", "フットサル", nil, "野球", "バスケ", nil, "バレー"]
 
   # 以下に回答を記載
-
+  p sports.compact!
+  p sports
 end
 
 def q5
@@ -35,28 +38,30 @@ def q5
   array2 = [1, 5, 8, 10]
 
   # 以下に回答を記載
-
+  p array1.empty?
+  p array2.empty?
 end
 
 def q6
   numbers1 = [1, 2, 3, 4, 5]
 
   # 以下に回答を記載
-
+  p number2 = numbers1.map { |number| number*10 }
 end
 
 def q7
   array = ["1", "2", "3", "4", "5"]
 
   # 以下に回答を記載
-
+  p array.map!(&:to_i)
 end
 
 def q8
   programming_languages = %w(ruby php python javascript)
 
   # 以下に回答を記載
-
+  programming_languages.map! {|language| language.capitalize}
+  upper_case_programming_languages = programming_languages.map(&:upcase)
   
   p programming_languages
   p upper_case_programming_languages
@@ -66,6 +71,9 @@ def q9
   names = ["田中", "佐藤", "佐々木", "高橋"]
 
   # 以下に回答を記載
+  names.each.with_index(1) do |name,i|
+      puts "会員No.#{i} #{name}さん"
+  end
 
 end
 
@@ -73,21 +81,34 @@ def q10
   foods = %w(いか たこ うに しゃけ うにぎり うに軍艦 うに丼)
 
   # 以下に回答を記載
-
+  foods.each do |food|
+      if food.include?("うに")
+        p "#{food}は好物です"
+    else
+        p "#{food}はまぁまぁ好きです"
+      end
+  end
+  
 end
 
 def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
-
+  sports2 = sports.flatten.uniq
+  puts "ユーザーの趣味一覧"
+  
+  sports2.each.with_index(1) do |sport,i|
+      puts "No#{i} #{sport}"
+  end
+  
 end
 
 def q12
   data = { user: { name: "satou", age: 33 } }
 
   # 以下に回答を記載
-
+  p data[:user][:name]
 end
 
 def q13
@@ -95,14 +116,15 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-
+  p user_data.update(update_data)
 end
 
 def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
-
+  array = data.keys
+  p array
 end
 
 def q15
@@ -110,7 +132,8 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-
+  puts data1.has_key?(:age)? "OK" : "NG"
+  puts data2.has_key?(:age)? "OK" : "NG"
 end
 
 def q16
@@ -122,11 +145,25 @@ def q16
   ]
 
   # 以下に回答を記載
-
+  users.each do |user|
+      puts "私の名前は#{user[:name]}です。年齢は#{user[:age]}歳です"
+  end
 end
 
 class UserQ17
   # 以下に回答を記載
+  def initialize(**params)
+    @params = params
+  end
+
+  def info
+    puts <<~EOS
+    名前: #{@params[:name]}
+    年齢: #{@params[:age]}
+    性別: #{@params[:gender]}
+    管理者権限: #{@params[:admin] == true ? "有り" : "無し"}
+    EOS
+  end
 
 end
 
@@ -142,6 +179,17 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(**params)
+    @params = params
+  end
+
+  def introduce
+      if   @params[:age] >= 15
+       "こんにちは，#{@params[:name]}と申します。宜しくお願いいたします。"
+      else @params[:age] < 15
+       "はいさいまいど〜，#{@params[:name]}です！！！"
+    end
+  end
 
 end
 
@@ -156,11 +204,14 @@ end
 
 class Item
   # 以下を修正して下さい
+  attr_accessor :name
 
-  def initialize(name)
+  def initialize(name:)
     @name = name
   end
+
 end
+
 
 def q19
   # ここは変更しないで下さい
@@ -170,12 +221,36 @@ end
 
 class UserQ20
   # 以下に回答を記載
+  attr_accessor :params
+  
+def initialize(**params)
+  @params = params
+end
 
 end
 
 class Zoo
   # 以下に回答を記載
 
+  def initialize(**zoo)
+    @zoo = zoo[:entry_fee]
+  end
+
+  def info_entry_fee(user)
+      case user.params[:age]
+    when 0..3
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:infant]}円です"
+    when 6..12
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:children]}円です"
+    when 13..64
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:adult]}円です"
+    when 65..120
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:senior]}円です"
+    else
+      puts "無効な値です"
+    end
+  end
+  
 end
 
 
