@@ -152,19 +152,16 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  def initialize(profile)
-    @name   = profile[:name]
-    @age    = profile[:age]
-    @gender = profile[:gender]
-    @admin  = profile[:admin]
+  def initialize(**params)
+    @params = params
   end
 
   def info
     puts <<~EOS
-      名前: #{@name}
-      年齢: #{@age}
-      性別: #{@gender}
-      管理者権限: #{@admin == true ? "有り" : "無し"}
+    名前: #{@params[:name]}
+    年齢: #{@params[:age]}
+    性別: #{@params[:gender]}
+    管理者権限: #{@params[:admin] == true ? "有り" : "無し"}
     EOS
   end
 
@@ -182,16 +179,15 @@ end
 
 class UserQ18
   # 以下に回答を記載
-  def initialize(profile)
-    @name = profile[:name]
-    @age  = profile[:age]
+  def initialize(**params)
+    @params = params
   end
 
   def introduce
-    if   @age >= 15
-      puts "こんにちは，#{@name}と申します。宜しくお願いいたします。"
-    else @age < 15
-      puts "はいさいまいど〜，#{@name}です！！！"
+      if   @params[:age] >= 15
+       "こんにちは，#{@params[:name]}と申します。宜しくお願いいたします。"
+      else @params[:age] < 15
+       "はいさいまいど〜，#{@params[:name]}です！！！"
     end
   end
 
@@ -225,11 +221,10 @@ end
 
 class UserQ20
   # 以下に回答を記載
-  attr_accessor :name, :age
-
-def initialize(profile)
-  @name = profile[:name]
-  @age  = profile[:age]
+  attr_accessor :params
+  
+def initialize(**params)
+  @params = params
 end
 
 end
@@ -237,23 +232,20 @@ end
 class Zoo
   # 以下に回答を記載
 
-  def initialize(zoo)
-    @infant   = zoo[:entry_fee][:infant]
-    @children = zoo[:entry_fee][:children]
-    @adult    = zoo[:entry_fee][:adult]
-    @senior   = zoo[:entry_fee][:senior]
+  def initialize(**zoo)
+    @zoo = zoo[:entry_fee]
   end
 
   def info_entry_fee(user)
-    case user.age
+      case user.params[:age]
     when 0..3
-      puts "#{user.name}さんの入場料金は#{@infant}円です"
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:infant]}円です"
     when 6..12
-      puts "#{user.name}さんの入場料金は#{@children}円です"
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:children]}円です"
     when 13..64
-      puts "#{user.name}さんの入場料金は#{@adult}円です"
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:adult]}円です"
     when 65..120
-      puts "#{user.name}さんの入場料金は#{@senior}円です"
+    puts "#{user.params[:name]}さんの入場料金は#{@zoo[:senior]}円です"
     else
       puts "無効な値です"
     end
